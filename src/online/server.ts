@@ -14,18 +14,25 @@
   import dotenv from "dotenv";
   import login from '../login/logreg.js';
   import { celebrateGameEnd } from '../logic/events/end-game';
+  import cors from 'cors';
+  import path from 'path';
 
   dotenv.config();
   const app = express();
   const server = createServer(app);
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: [`https://backgammon-k3pu.onrender.com`,"http://localhost:5173",],
       methods: ["GET", "POST"],
       credentials: true,
     },
   });
   
+// Middleware CORS per API
+app.use(cors({
+  origin: 'https://backgammon-k3pu.onrender.com', // Il tuo dominio Render
+  methods: ['GET', 'POST'],
+}));
   // Configurazione della sessione
   const sessionMiddleware = session({
     secret: "your-secret-key", // Cambia con una chiave segreta sicura
