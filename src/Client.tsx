@@ -9,7 +9,7 @@ import ThisMove from "./logic/models/this-move";
 import { Socket } from "socket.io-client";
 import { io } from "socket.io-client";
 
-const socket: Socket = io("http://localhost:3000", {});
+const socket: Socket = io('https://backgammon-k3pu.onrender.com', {});
 
 export const toastStyle = (thisTurn: ThisTurn) => {
   return {
