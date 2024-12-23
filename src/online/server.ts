@@ -15,7 +15,7 @@
   import login from '../login/logreg.js';
   import { celebrateGameEnd } from '../logic/events/end-game';
   import cors from 'cors';
-  import path from 'path';
+
 
   dotenv.config();
   const app = express();
@@ -30,8 +30,9 @@
   
 // Middleware CORS per API
 app.use(cors({
-  origin: 'https://backgammon-k3pu.onrender.com', // Il tuo dominio Render
+  origin: ['https://backgammon-k3pu.onrender.com', 'http://localhost:5173',], //dominio Render
   methods: ['GET', 'POST'],
+  credentials: true,
 }));
   // Configurazione della sessione
   const sessionMiddleware = session({
@@ -39,7 +40,7 @@ app.use(cors({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl:`mongodb+srv://thomasbernardi2:YFaUnIw0VI2calIJ@backgammon.rguuk.mongodb.net/backgammon?retryWrites=true&w=majority&authSource=admin`,
+      mongoUrl: process.env.MONGO_URL || `mongodb+srv://thomasbernardi2:YFaUnIw0VI2calIJ@backgammon.rguuk.mongodb.net/backgammon?retryWrites=true&w=majority&authSource=admin`,
   
     }),
     cookie: {
